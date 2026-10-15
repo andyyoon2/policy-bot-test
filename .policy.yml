@@ -1,0 +1,78 @@
+# Prototype policy for the CODEOWNERS App design.
+# policy-bot reads this file from the BASE branch of each PR, so a PR cannot
+# change the rules that apply to itself.
+#
+# Paths are regular expressions matched against repo-relative file paths.
+# Top-level entries under `policy.approval` are ANDed; rules whose `if` does
+# not match are skipped and drop out of the evaluation.
+
+policy:
+  approval:
+    - or:
+        - backend approved by its owner
+        - backend approved by the dependency bot
+    - frontend approved by its owner
+    - infra and workflows approved by a human owner
+    - anything else
+    # Enable once the repo has a second collaborator with write access.
+    # Until then the author cannot co-sign their own PR and every PR would
+    # stay pending.
+    # - human co-sign
+
+approval_rules:
+  - name: backend approved by its owner
+    if:
+      changed_files:
+        paths: ["^backend/"]
+    requires:
+      count: 1
+      users: ["andyyoon2"]
+
+  # Stand-in for "core-eng dependency files approved by the dependency bot".
+  # only_changed_files: every changed file must be under backend/, mirroring
+  # "core-eng owns only dependency files in this PR".
+  # The bot login is the approver App's slug plus "[bot]". Rename after
+  # creating the App.
+  - name: backend approved by the dependency bot
+    if:
+      only_changed_files:
+        paths: ["^backend/"]
+    options:
+      invalidate_on_push: true
+    requires:
+      count: 1
+      users: ["policy-bot-test-approver[bot]"]
+      conditions:
+        has_workflow_result:
+          conclusions: ["success"]
+          workflows: [".github/workflows/lint.yaml"]
+
+  - name: frontend approved by its owner
+    if:
+      changed_files:
+        paths: ["^frontend/"]
+    requires:
+      count: 1
+      users: ["andyyoon2"]
+
+  # Human-only paths. No bot login is ever listed here.
+  - name: infra and workflows approved by a human owner
+    if:
+      changed_files:
+        paths: ["^infra/", "^\\.github/", "^\\.policy\\.yml$"]
+    requires:
+      count: 1
+      users: ["andyyoon2"]
+
+  # Always-approved rule so that a PR touching no owned path still has at
+  # least one matching rule. policy-bot fails a PR where every rule is skipped.
+  - name: anything else
+    requires:
+      count: 0
+
+  - name: human co-sign
+    options:
+      allow_author: false
+    requires:
+      count: 1
+      permissions: ["write"]

@@ -1,0 +1,19 @@
+name: Lint
+
+# Stand-in for xyla's `lint-lockfiles` job. The dependency-bot rule in
+# .policy.yml requires this workflow to succeed on the head commit.
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stub lint
+        run: |
+          if [ "${{ contains(github.event.pull_request.labels.*.name, 'break-lint') }}" = "true" ]; then
+            echo "break-lint label present, failing on purpose"; exit 1
+          fi
+          echo "stub lint passes"

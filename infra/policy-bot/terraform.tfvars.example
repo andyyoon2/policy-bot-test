@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars (git-ignored) and fill in after creating the GitHub App.
+github_app_id          = "123456"
+github_oauth_client_id = "Iv1.abcdef0123456789"
+deploy_service         = true
+min_instances          = 0
+hostname               = "policy-bot.xyladev2.live"
