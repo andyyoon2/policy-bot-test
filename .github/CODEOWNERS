@@ -1,7 +1,7 @@
 # Kept in lockstep with .policy.yml. GitHub keeps using this file to request
 # reviewers natively; policy-bot enforces the rules.
-backend/      @andyyoon2
-frontend/     @andyyoon2
-infra/        @andyyoon2
-.github/      @andyyoon2
-.policy.yml   @andyyoon2
+backend/      @andyyoon2 @ConjunctiveNormalForm
+frontend/     @andyyoon2 @ConjunctiveNormalForm
+infra/        @andyyoon2 @ConjunctiveNormalForm
+.github/      @andyyoon2 @ConjunctiveNormalForm
+.policy.yml   @andyyoon2 @ConjunctiveNormalForm
