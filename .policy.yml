@@ -26,7 +26,7 @@ approval_rules:
         paths: ["^backend/"]
     requires:
       count: 1
-      users: ["andyyoon2"]
+      users: ["andyyoon2", "ConjunctiveNormalForm"]
 
   # Stand-in for "core-eng dependency files approved by the dependency bot".
   # only_changed_files: every changed file must be under backend/, mirroring
@@ -53,7 +53,7 @@ approval_rules:
         paths: ["^frontend/"]
     requires:
       count: 1
-      users: ["andyyoon2"]
+      users: ["andyyoon2", "ConjunctiveNormalForm"]
 
   # Human-only paths. No bot login is ever listed here.
   - name: infra and workflows approved by a human owner
@@ -62,7 +62,7 @@ approval_rules:
         paths: ["^infra/", "^\\.github/", "^\\.policy\\.yml$"]
     requires:
       count: 1
-      users: ["andyyoon2"]
+      users: ["andyyoon2", "ConjunctiveNormalForm"]
 
   # Always-approved rule so that a PR touching no owned path still has at
   # least one matching rule. policy-bot fails a PR where every rule is skipped.
