@@ -16,8 +16,6 @@ Design doc: *CODEOWNERS App: bot approvals on behalf of code owners*
 | `.github/CODEOWNERS` | Same ownership, kept for GitHub's native review requests. |
 | `.github/workflows/lint.yaml` | Stub CI job; the bot rule requires it to pass. Add the `break-lint` label to a PR to make it fail. |
 | `backend/`, `frontend/`, `infra/`, `.github/` | Stub trees, each a different ownership rule. |
-| `infra/policy-bot/` | Terraform for the policy-bot deployment in `xyla-development-2`. |
-| `scripts/set-secrets.sh` | Loads the GitHub App secrets into Secret Manager. |
 | `scripts/approve-as-bot.sh` | Approves a PR as a GitHub App, standing in for the auto-approver service. |
 
 ## Rules under test
@@ -33,7 +31,7 @@ Design doc: *CODEOWNERS App: bot approvals on behalf of code owners*
 
 ## Setup order
 
-1. `infra/policy-bot/README.md` steps 1 to 6: deploy policy-bot and create its GitHub App.
+1. Deploy policy-bot from the xyla repo: `infra/live/oe-gcp/xyla-development-2/policy-bot/README.md` (deploys to `xyla-development-2`, creates the GitHub App, loads secrets).
 2. Create a second GitHub App named `policy-bot-test-approver` (no webhook, permissions: Pull requests read & write, Metadata read). Install it on this repo. Its reviews appear as `policy-bot-test-approver[bot]`, which `.policy.yml` already lists.
 3. Add a second collaborator with write access, or a second personal account. GitHub does not let an author approve their own PR, so human-approval cases need someone other than the PR author.
 4. Ruleset on `main` (Settings, Rules, Rulesets):
