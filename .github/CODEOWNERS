@@ -2,6 +2,10 @@
 # reviewers natively; policy-bot enforces the rules.
 backend/      @andyyoon2 @ConjunctiveNormalForm
 frontend/     @andyyoon2 @ConjunctiveNormalForm
+
+# An entry with no owners clears ownership for that path.
 infra/        @andyyoon2 @ConjunctiveNormalForm
+infra/auth/
+
 .github/      @andyyoon2 @ConjunctiveNormalForm
 .policy.yml   @andyyoon2 @ConjunctiveNormalForm

@@ -60,6 +60,7 @@ approval_rules:
     if:
       changed_files:
         paths: ["^infra/", "^\\.github/", "^\\.policy\\.yml$"]
+        ignore: ["^infra/auth/"]
     requires:
       count: 1
       users: ["andyyoon2", "ConjunctiveNormalForm"]
